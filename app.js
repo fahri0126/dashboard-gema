@@ -82,7 +82,7 @@ const KEYWORD_RULES = [
       "iya",
       "^ya$",
       "^yes$",
-      "Ya.",
+      "ya.",
       "ya sangat",
       "very interest",
       "iy",
