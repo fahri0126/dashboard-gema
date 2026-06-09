@@ -7,28 +7,79 @@ body {
   padding: 24px;
 }
 
-.container { max-width: 900px; margin: 0 auto; }
+.container { max-width: 1100px; margin: 0 auto; }
 
-h1 { margin-bottom: 24px; font-size: 1.8rem; }
+h1 { margin-bottom: 24px; font-size: 1.6rem; }
+
+/* Kartu Ringkasan */
+.summary-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px 28px;
+  flex: 1;
+  min-width: 160px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.summary-card .value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4285f4;
+}
+
+.summary-card .label {
+  font-size: 0.85rem;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* Grid Grafik */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
 
 .card {
   background: white;
   border-radius: 12px;
   padding: 20px;
-  margin-bottom: 24px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-.card h2 { margin-bottom: 16px; font-size: 1.1rem; color: #555; }
+.card.wide {
+  grid-column: span 2;
+}
 
-.table-wrap { overflow-x: auto; }
+.card h2 {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 16px;
+}
 
-table { width: 100%; border-collapse: collapse; }
-th { background: #4285f4; color: white; padding: 10px 14px; text-align: left; }
-td { padding: 9px 14px; border-bottom: 1px solid #eee; }
-tr:hover td { background: #f9f9f9; }
+#loading {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}
 
-canvas { max-width: 100%; }
+#error {
+  background: #ffe0e0;
+  color: #c00;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
 
-.loading { text-align: center; padding: 40px; color: #888; }
-.error { background: #ffe0e0; color: #c00; padding: 12px; border-radius: 8px; }
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+  .card.wide { grid-column: span 1; }
+}
