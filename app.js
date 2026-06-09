@@ -96,13 +96,13 @@ const KEYWORD_RULES = [
 ];
 
 function normalize(val) {
+  if (val === null || val === undefined) return "";
   const input = String(val).trim().toLowerCase();
-  if (!input) return '';
+  if (!input) return "";
 
   for (const rule of KEYWORD_RULES) {
     for (const kw of rule.keywords) {
-      // Support regex pattern (^...$) atau substring biasa
-      const isRegex = kw.startsWith('^') || kw.endsWith('$');
+      const isRegex = kw.startsWith("^") || kw.endsWith("$");
       if (isRegex) {
         if (new RegExp(kw).test(input)) return rule.result;
       } else {
@@ -112,7 +112,7 @@ function normalize(val) {
   }
 
   // Tidak cocok → kembalikan asli tapi dengan kapitalisasi standar
-  return val.trim().replace(/\b\w/g, c => c.toUpperCase());
+  return val.trim().replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function countFreq(arr) {
