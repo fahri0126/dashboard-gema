@@ -19,12 +19,14 @@ const COLORS = [
 const KEYWORD_RULES = [
   // Program Studi
   {
-    keywords: ["teknik informatika", "teknik info"],
+    keywords: [
+      "teknik informatika",
+      "Program Studi S1 Jurusan Teknik Informatika",
+    ],
     result: "Teknik Informatika",
   },
-  { keywords: ["ilmu komputer"], result: "Teknik Informatika" },
   { keywords: ["informatika"], result: "Teknik Informatika" },
-  { keywords: [" it ", "^it$"], result: "Teknik Informatika" }, // 'it' exact
+  { keywords: [" it ", "^it$"], result: "Teknik Informatika" },
   { keywords: ["teknik geofisika", "geofisika"], result: "Teknik Geofisika" },
   { keywords: ["teknik geologi", "geologi"], result: "Teknik Geologi" },
   { keywords: ["teknik sipil", "sipil"], result: "Teknik Sipil" },
@@ -112,7 +114,9 @@ function normalize(val) {
   }
 
   // Tidak cocok → kembalikan asli tapi dengan kapitalisasi standar
-  return val.trim().replace(/\b\w/g, (c) => c.toUpperCase());
+  return String(val)
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 function countFreq(arr) {
