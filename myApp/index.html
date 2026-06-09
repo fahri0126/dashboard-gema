@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Data</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Dashboard Data</h1>
+
+    <div id="loading" class="loading">Memuat data...</div>
+    <div id="error" class="error" style="display:none;"></div>
+
+    <div class="card">
+      <h2>Tabel Data</h2>
+      <div class="table-wrap">
+        <table id="tabel">
+          <thead id="thead"></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Grafik</h2>
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
