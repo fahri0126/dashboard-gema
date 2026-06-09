@@ -1,7 +1,3 @@
-window.location.replace(
-  "https://script.google.com/macros/s/AKfycbyB-JsUF8T3GTjOmcI4pmdyr__NYGA_H8UmyyU5MuTuv6c6c9tNiKuQi8jurzTrsMxH/exec",
-);
-
 const API_URL =
   "https://script.google.com/macros/s/AKfycbyB-JsUF8T3GTjOmcI4pmdyr__NYGA_H8UmyyU5MuTuv6c6c9tNiKuQi8jurzTrsMxH/exec";
 
