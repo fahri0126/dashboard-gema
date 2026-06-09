@@ -89,7 +89,7 @@ const KEYWORD_RULES = [
       "Very Interest",
       "Iy",
       "Saya belum pernah mencobanya, dan sepertinya menarik.",
-      "Iyh"
+      "iyh",
     ],
     result: "Ya",
   },
