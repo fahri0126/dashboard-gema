@@ -1,7 +1,10 @@
 const API_URL =
   "https://script.google.com/macros/s/AKfycbyyuv05qCcyz5BPNQeH_gVj_IPe0uKsV0iLz5V_bVI/dev";
 
-fetch(API_URL)
+fetch(API_URL, {
+  redirect: "follow",
+  method: "GET",
+})
   .then((res) => {
     if (!res.ok) throw new Error("Gagal fetch: " + res.status);
     return res.json();
