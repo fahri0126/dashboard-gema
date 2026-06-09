@@ -82,12 +82,20 @@ const KEYWORD_RULES = [
       "iya",
       "^ya$",
       "^yes$",
+      "Ya.",
+      "Ya$",
+      "Ya Sangat",
+      "very interest",
+      "Very Interest",
+      "Iy",
+      "Saya belum pernah mencobanya, dan sepertinya menarik.",
+      "Iyh"
     ],
     result: "Ya",
   },
 
   {
-    keywords: ["jujur tidak", "^tidak$", "^no$", "tidak tertarik"],
+    keywords: ["jujur tidak", "^tidak$", "^no$", "tidak tertarik", "Jujur Ga"],
     result: "Tidak",
   },
 
