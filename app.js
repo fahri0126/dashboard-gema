@@ -17,10 +17,10 @@ const COLORS = [
 
 const NORMALISASI = {
   // Program Studi
-  informatika: "Informatika",
-  "teknik informatika": "Informatika",
+  informatika: "Teknik Informatika",
+  "teknik informatika": "Teknik Informatika",
   it: "Informatika",
-  "Program Studi S1 Jurusan Teknik Informatika": "Informatika",
+  "Program Studi S1 Jurusan Teknik Informatika": "Teknik Informatika",
   "teknik geofisika": "Teknik Geofisika",
   "teknik geologi": "Teknik Geologi",
   kebidanan: "Kebidanan",
