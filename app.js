@@ -15,57 +15,51 @@ const COLORS = [
   "#ffca28",
 ];
 
-
-
-// =============================================
-// NORMALISASI MAP
-// Tambahkan variasi baru di sini kalau muncul
-// =============================================
 const NORMALISASI = {
   // Program Studi
-  'informatika': 'Informatika',
-  'teknik informatika': 'Informatika',
-  'it': 'Informatika',
-  'ilmu komputer': 'Informatika',
-  'program stusi s1 jurusan teknik inf': 'Informatika',
-  'teknik geofisika': 'Teknik Geofisika',
-  'teknik geologi': 'Teknik Geologi',
-  'kebidanan': 'Kebidanan',
-  'peternakan': 'Peternakan',
-  'pendidikan bahasa dan sastra': 'Pendidikan Bahasa & Sastra',
-  'pendidikan matematika': 'Pendidikan Matematika',
-  'teknik sipil': 'Teknik Sipil',
-  's1 teknik sipil': 'Teknik Sipil',
-  'teknik elektro': 'Teknik Elektro',
-  'manajemen': 'Manajemen',
-  'keguruan/pgsd': 'PGSD',
-  'ilmu administrasi': 'Ilmu Administrasi',
-  'kedokteran': 'Kedokteran',
-  'gizi': 'Gizi',
-  'ilmu hukum': 'Ilmu Hukum',
-  'teknik arsitektur': 'Teknik Arsitektur',
+  informatika: "Informatika",
+  "teknik informatika": "Informatika",
+  it: "Informatika",
+  "ilmu komputer": "Informatika",
+  "program stusi s1 jurusan teknik inf": "Informatika",
+  "teknik geofisika": "Teknik Geofisika",
+  "teknik geologi": "Teknik Geologi",
+  kebidanan: "Kebidanan",
+  peternakan: "Peternakan",
+  "pendidikan bahasa dan sastra": "Pendidikan Bahasa & Sastra",
+  "pendidikan matematika": "Pendidikan Matematika",
+  "teknik sipil": "Teknik Sipil",
+  "s1 teknik sipil": "Teknik Sipil",
+  "teknik elektro": "Teknik Elektro",
+  manajemen: "Manajemen",
+  "keguruan/pgsd": "PGSD",
+  "ilmu administrasi": "Ilmu Administrasi",
+  kedokteran: "Kedokteran",
+  gizi: "Gizi",
+  "ilmu hukum": "Ilmu Hukum",
+  "teknik arsitektur": "Teknik Arsitektur",
 
   // Semester — normalisasi ke angka string
-  'semester 2': '2',
-  'semester 4': '4',
-  'semester 6': '6',
-  'semester 8': '8',
-  'semester2': '2',
-  'semester4': '4',
-  'semester6': '6',
-  'semester8': '8',
-  'dua (2)': '2',
-  'dua': '2',
-  'semester 2 ': '2',
-  'semester 4 ': '4',
+  "semester 2": "2",
+  "semester 4": "4",
+  "semester 6": "6",
+  "semester 8": "8",
+  semester2: "2",
+  semester4: "4",
+  semester6: "6",
+  semester8: "8",
+  "dua (2)": "2",
+  dua: "2",
+  "semester 2 ": "2",
+  "semester 4 ": "4",
 
   // Ketertarikan platform kuis
-  'ya': 'Ya',
-  'yes': 'Ya',
-  'tidak': 'Tidak',
-  'no': 'Tidak',
-  'mungkin': 'Mungkin',
-  'belum tahu': 'Mungkin',
+  ya: "Ya",
+  yes: "Ya",
+  tidak: "Tidak",
+  no: "Tidak",
+  mungkin: "Mungkin",
+  "belum tahu": "Mungkin",
 };
 
 function normalize(val) {
@@ -84,39 +78,12 @@ function countFreq(arr) {
 
 function countMultiAnswer(arr) {
   const freq = {};
-  arr.forEach(val => {
-    if (!val) return;
-    String(val).split(',').forEach(item => {
-      const key = normalize(item);
-      if (!key || key === '-') return;
-      freq[key] = (freq[key] || 0) + 1;
-    });
-  });
-  return freq;
-}
-
-
-
-
-// Hitung frekuensi dari array nilai
-function countFreq(arr) {
-  return arr.reduce((acc, val) => {
-    const key = String(val).trim();
-    if (!key) return acc;
-    acc[key] = (acc[key] || 0) + 1;
-    return acc;
-  }, {});
-}
-
-// Pecah nilai yang dipisah koma (multi-answer)
-function countMultiAnswer(arr) {
-  const freq = {};
   arr.forEach((val) => {
     if (!val) return;
     String(val)
       .split(",")
       .forEach((item) => {
-        const key = item.trim();
+        const key = normalize(item);
         if (!key || key === "-") return;
         freq[key] = (freq[key] || 0) + 1;
       });
