@@ -15,55 +15,104 @@ const COLORS = [
   "#ffca28",
 ];
 
-const NORMALISASI = {
+// Urutan PENTING: dari paling spesifik ke paling umum
+const KEYWORD_RULES = [
   // Program Studi
-  informatika: "Teknik Informatika",
-  "teknik informatika": "Teknik Informatika",
-  it: "Informatika",
-  "Program Studi S1 Jurusan Teknik Informatika": "Teknik Informatika",
-  "teknik geofisika": "Teknik Geofisika",
-  "teknik geologi": "Teknik Geologi",
-  kebidanan: "Kebidanan",
-  peternakan: "Peternakan",
-  "pendidikan bahasa dan sastra": "Pendidikan Bahasa & Sastra",
-  "pendidikan matematika": "Pendidikan Matematika",
-  "teknik sipil": "Teknik Sipil",
-  "s1 teknik sipil": "Teknik Sipil",
-  "teknik elektro": "Teknik Elektro",
-  manajemen: "Manajemen",
-  "keguruan/pgsd": "PGSD",
-  "ilmu administrasi": "Ilmu Administrasi",
-  kedokteran: "Kedokteran",
-  gizi: "Gizi",
-  "ilmu hukum": "Ilmu Hukum",
-  "teknik arsitektur": "Teknik Arsitektur",
+  {
+    keywords: ["teknik informatika", "teknik info"],
+    result: "Teknik Informatika",
+  },
+  { keywords: ["ilmu komputer"], result: "Teknik Informatika" },
+  { keywords: ["informatika"], result: "Teknik Informatika" },
+  { keywords: [" it ", "^it$"], result: "Teknik Informatika" }, // 'it' exact
+  { keywords: ["teknik geofisika", "geofisika"], result: "Teknik Geofisika" },
+  { keywords: ["teknik geologi", "geologi"], result: "Teknik Geologi" },
+  { keywords: ["teknik sipil", "sipil"], result: "Teknik Sipil" },
+  { keywords: ["teknik elektro", "elektro"], result: "Teknik Elektro" },
+  {
+    keywords: ["teknik arsitektur", "arsitektur"],
+    result: "Teknik Arsitektur",
+  },
+  {
+    keywords: ["pendidikan matematika", "pend. mat"],
+    result: "Pendidikan Matematika",
+  },
+  {
+    keywords: ["pendidikan bahasa", "bhs dan sastra", "bahasa dan sastra"],
+    result: "Pendidikan Bahasa & Sastra",
+  },
+  { keywords: ["kedokteran"], result: "Kedokteran" },
+  { keywords: ["kebidanan"], result: "Kebidanan" },
+  { keywords: ["peternakan"], result: "Peternakan" },
+  { keywords: ["manajemen"], result: "Manajemen" },
+  { keywords: ["pgsd", "keguruan"], result: "PGSD" },
+  {
+    keywords: ["ilmu administrasi", "adm negara"],
+    result: "Ilmu Administrasi",
+  },
+  { keywords: ["ilmu hukum", "hukum"], result: "Ilmu Hukum" },
+  { keywords: ["gizi"], result: "Gizi" },
 
-  // Semester — normalisasi ke angka string
-  "semester 2": "2",
-  "semester 4": "4",
-  "semester 6": "6",
-  "semester 8": "8",
-  semester2: "2",
-  semester4: "4",
-  semester6: "6",
-  semester8: "8",
-  "dua (2)": "2",
-  dua: "2",
-  "semester 2 ": "2",
-  "semester 4 ": "4",
+  // Semester
+  { keywords: ["semester 2", "sem 2", "dua (2)", "^2$"], result: "2" },
+  { keywords: ["semester 4", "sem 4", "^4$"], result: "4" },
+  { keywords: ["semester 6", "sem 6", "^6$"], result: "6" },
+  { keywords: ["semester 8", "sem 8", "^8$"], result: "8" },
 
-  // Ketertarikan platform kuis
-  ya: "Ya",
-  yes: "Ya",
-  tidak: "Tidak",
-  no: "Tidak",
-  mungkin: "Mungkin",
-  "belum tahu": "Mungkin",
-};
+  // Ketertarikan Platform Kuis
+  {
+    keywords: [
+      "sangat tertarik",
+      "saya tertarik",
+      "ya tertarik",
+      "ya, sangat",
+      "iya..sangat",
+      "iyaa..sangat",
+      "iya saya sangat",
+      "iya saya tertarik",
+      "yes, contoh",
+      "yah cukup tertarik",
+      "iya tentu saja",
+      "tentu",
+      "tertarik",
+      "iyaw",
+      "iyaa",
+      "iya",
+      "^ya$",
+      "^yes$",
+    ],
+    result: "Ya",
+  },
+
+  {
+    keywords: ["jujur tidak", "^tidak$", "^no$", "tidak tertarik"],
+    result: "Tidak",
+  },
+
+  {
+    keywords: ["lumayan", "mungkin", "belum tahu", "ragu", "kurang tahu"],
+    result: "Mungkin",
+  },
+];
 
 function normalize(val) {
-  const key = String(val).trim().toLowerCase();
-  return NORMALISASI[key] || String(val).trim();
+  const input = String(val).trim().toLowerCase();
+  if (!input) return '';
+
+  for (const rule of KEYWORD_RULES) {
+    for (const kw of rule.keywords) {
+      // Support regex pattern (^...$) atau substring biasa
+      const isRegex = kw.startsWith('^') || kw.endsWith('$');
+      if (isRegex) {
+        if (new RegExp(kw).test(input)) return rule.result;
+      } else {
+        if (input.includes(kw)) return rule.result;
+      }
+    }
+  }
+
+  // Tidak cocok → kembalikan asli tapi dengan kapitalisasi standar
+  return val.trim().replace(/\b\w/g, c => c.toUpperCase());
 }
 
 function countFreq(arr) {
