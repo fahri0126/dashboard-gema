@@ -65,6 +65,13 @@ h1 { margin-bottom: 24px; font-size: 1.6rem; }
   margin-bottom: 16px;
 }
 
+.section-title {
+  font-size: 1.3rem;
+  margin: 32px 0 16px;
+  color: #333;
+}
+
+
 #loading {
   text-align: center;
   padding: 40px;

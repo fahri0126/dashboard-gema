@@ -185,6 +185,72 @@ function makeChart(id, type, labels, values, options = {}) {
   });
 }
 
+// =============================================
+// FUNGSI STATISTIK
+// =============================================
+
+function modus(arr) {
+  const freq = countFreq(arr);
+  return Object.entries(freq).sort((a, b) => b[1] - a[1])[0]?.[0] || '-';
+}
+
+function median(arr) {
+  const sorted = [...arr].filter(v => !isNaN(v) && v !== '').map(Number).sort((a, b) => a - b);
+  if (!sorted.length) return '-';
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 !== 0
+    ? sorted[mid]
+    : ((sorted[mid - 1] + sorted[mid]) / 2).toFixed(1);
+}
+
+function rataValid(arr) {
+  const valid = arr.map(v => parseFloat(v)).filter(v => !isNaN(v) && v > 0);
+  return valid.length
+    ? (valid.reduce((s, v) => s + v, 0) / valid.length).toFixed(1)
+    : '-';
+}
+
+function persentase(freq, total) {
+  return Object.entries(freq).map(([k, v]) => ({
+    kategori: k,
+    jumlah: v,
+    persen: ((v / total) * 100).toFixed(1) + '%'
+  }));
+}
+
+function buatTabelStatistik(rows) {
+  return `
+    <table class="stat-table">
+      <thead>
+        <tr>
+          <th>Kategori</th>
+          <th>Jumlah</th>
+          <th>Persentase</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map(r => `
+          <tr>
+            <td>${r.kategori}</td>
+            <td>${r.jumlah}</td>
+            <td>${r.persen}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function buatBlokDeskriptif(judul, narasi, tabelRows) {
+  return `
+    <div class="card deskriptif-block">
+      <h2>${judul}</h2>
+      <p class="narasi">${narasi}</p>
+      ${buatTabelStatistik(tabelRows)}
+    </div>
+  `;
+}
+
 fetch(API_URL, { redirect: "follow", method: "GET" })
   .then((res) => {
     if (!res.ok) throw new Error("HTTP error: " + res.status);
